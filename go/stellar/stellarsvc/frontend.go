@@ -4,6 +4,7 @@ package stellarsvc
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sort"
 
@@ -208,6 +209,18 @@ func (s *Server) LinkNewWalletAccountLocal(ctx context.Context, arg stellar1.Lin
 	}
 
 	return accountID, nil
+}
+
+func (s *Server) GetPaymentsLocal(ctx context.Context, arg stellar1.GetPaymentsLocalArg) (payments []stellar1.PaymentOrErrorLocal, err error) {
+	ctx = s.logTag(ctx)
+	defer s.G().CTraceTimed(ctx, "GetPaymentsLocal", func() error { return err })()
+	err = s.assertLoggedIn(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return nil, errors.New("not yet implemented")
+
 }
 
 type balanceList []stellar1.Balance
