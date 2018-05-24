@@ -44,12 +44,11 @@ const selectDisclaimer = `You are selecting a PGP key from your local GnuPG keyc
 will publish a statement signed with this key to make it part of 
 your Keybase.io identity.
 
-You will be prompted by GnuPG to unlock your private key - it will
-be used to make a signature that you are the owner of said key.
+Note that GnuPG will prompt you to perform this signature.
 
 You can also import the secret key to *local*, *encrypted* Keybase
-keyring, to be able to decrypt or sign using Keybase client. To do
-that, use "--import" flag.
+keyring, enabling decryption and signing with the Keybase client.
+To do that, use "--import" flag.
 
 Learn more: keybase pgp help select
 
