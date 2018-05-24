@@ -2915,7 +2915,7 @@ export type NaclSigningKeyPrivate = any
 
 export type NaclSigningKeyPublic = any
 
-export type NotificationChannels = $ReadOnly<{session: Boolean, users: Boolean, kbfs: Boolean, tracking: Boolean, favorites: Boolean, paperkeys: Boolean, keyfamily: Boolean, service: Boolean, app: Boolean, chat: Boolean, pgp: Boolean, kbfsrequest: Boolean, badges: Boolean, reachability: Boolean, team: Boolean, ephemeral: Boolean}>
+export type NotificationChannels = $ReadOnly<{session: Boolean, users: Boolean, kbfs: Boolean, tracking: Boolean, favorites: Boolean, paperkeys: Boolean, keyfamily: Boolean, service: Boolean, app: Boolean, chat: Boolean, pgp: Boolean, kbfsrequest: Boolean, badges: Boolean, reachability: Boolean, team: Boolean, ephemeral: Boolean, chatkbfsedits: Boolean}>
 
 export type NotifyAppExitRpcParam = ?$ReadOnly<{incomingCallMap?: IncomingCallMapType, waitingHandler?: WaitingHandlerType}>
 
