@@ -253,6 +253,16 @@ type ChangeDisplayCurrencyLocalArg struct {
 	Currency  OutsideCurrencyCode `codec:"currency" json:"currency"`
 }
 
+type GetWalletAccountPublicKeyLocalArg struct {
+	SessionID int       `codec:"sessionID" json:"sessionID"`
+	AccountID AccountID `codec:"accountID" json:"accountID"`
+}
+
+type GetWalletAccountPrivateKeyLocalArg struct {
+	SessionID int       `codec:"sessionID" json:"sessionID"`
+	AccountID AccountID `codec:"accountID" json:"accountID"`
+}
+
 type BalancesLocalArg struct {
 	AccountID AccountID `codec:"accountID" json:"accountID"`
 }
@@ -328,6 +338,8 @@ type LocalInterface interface {
 	DeleteWalletAccountLocal(context.Context, DeleteWalletAccountLocalArg) error
 	LinkNewWalletAccountLocal(context.Context, LinkNewWalletAccountLocalArg) (AccountID, error)
 	ChangeDisplayCurrencyLocal(context.Context, ChangeDisplayCurrencyLocalArg) error
+	GetWalletAccountPublicKeyLocal(context.Context, GetWalletAccountPublicKeyLocalArg) (string, error)
+	GetWalletAccountPrivateKeyLocal(context.Context, GetWalletAccountPrivateKeyLocalArg) (SecretKey, error)
 	BalancesLocal(context.Context, AccountID) ([]Balance, error)
 	SendCLILocal(context.Context, SendCLILocalArg) (SendResultCLILocal, error)
 	ClaimCLILocal(context.Context, ClaimCLILocalArg) (RelayClaimResult, error)
@@ -473,6 +485,38 @@ func LocalProtocol(i LocalInterface) rpc.Protocol {
 						return
 					}
 					err = i.ChangeDisplayCurrencyLocal(ctx, (*typedArgs)[0])
+					return
+				},
+				MethodType: rpc.MethodCall,
+			},
+			"getWalletAccountPublicKeyLocal": {
+				MakeArg: func() interface{} {
+					ret := make([]GetWalletAccountPublicKeyLocalArg, 1)
+					return &ret
+				},
+				Handler: func(ctx context.Context, args interface{}) (ret interface{}, err error) {
+					typedArgs, ok := args.(*[]GetWalletAccountPublicKeyLocalArg)
+					if !ok {
+						err = rpc.NewTypeError((*[]GetWalletAccountPublicKeyLocalArg)(nil), args)
+						return
+					}
+					ret, err = i.GetWalletAccountPublicKeyLocal(ctx, (*typedArgs)[0])
+					return
+				},
+				MethodType: rpc.MethodCall,
+			},
+			"getWalletAccountPrivateKeyLocal": {
+				MakeArg: func() interface{} {
+					ret := make([]GetWalletAccountPrivateKeyLocalArg, 1)
+					return &ret
+				},
+				Handler: func(ctx context.Context, args interface{}) (ret interface{}, err error) {
+					typedArgs, ok := args.(*[]GetWalletAccountPrivateKeyLocalArg)
+					if !ok {
+						err = rpc.NewTypeError((*[]GetWalletAccountPrivateKeyLocalArg)(nil), args)
+						return
+					}
+					ret, err = i.GetWalletAccountPrivateKeyLocal(ctx, (*typedArgs)[0])
 					return
 				},
 				MethodType: rpc.MethodCall,
@@ -744,6 +788,16 @@ func (c LocalClient) LinkNewWalletAccountLocal(ctx context.Context, __arg LinkNe
 
 func (c LocalClient) ChangeDisplayCurrencyLocal(ctx context.Context, __arg ChangeDisplayCurrencyLocalArg) (err error) {
 	err = c.Cli.Call(ctx, "stellar.1.local.changeDisplayCurrencyLocal", []interface{}{__arg}, nil)
+	return
+}
+
+func (c LocalClient) GetWalletAccountPublicKeyLocal(ctx context.Context, __arg GetWalletAccountPublicKeyLocalArg) (res string, err error) {
+	err = c.Cli.Call(ctx, "stellar.1.local.getWalletAccountPublicKeyLocal", []interface{}{__arg}, &res)
+	return
+}
+
+func (c LocalClient) GetWalletAccountPrivateKeyLocal(ctx context.Context, __arg GetWalletAccountPrivateKeyLocalArg) (res SecretKey, err error) {
+	err = c.Cli.Call(ctx, "stellar.1.local.getWalletAccountPrivateKeyLocal", []interface{}{__arg}, &res)
 	return
 }
 

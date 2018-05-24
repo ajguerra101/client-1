@@ -50,6 +50,9 @@ protocol local {
   // supported currencies, returned from getDisplayCurrenciesLocal.
   void changeDisplayCurrencyLocal(int sessionID, AccountID accountID, OutsideCurrencyCode currency);
 
+  string getWalletAccountPublicKeyLocal(int sessionID, AccountID accountID);
+  SecretKey getWalletAccountPrivateKeyLocal(int sessionID, AccountID accountID);
+
   // -------------------------------------------------------
   // CLI protocol
   // -------------------------------------------------------
