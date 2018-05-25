@@ -59,3 +59,12 @@ func FindNextMerkleRootAfterRevoke(m MetaContext, arg keybase1.FindNextMerkleRoo
 	m.CDebugf("| res.Res: %+v", *res.Res)
 	return res, nil
 }
+
+func VerifyMerkleRootAndKBFS(m MetaContext, arg keybase1.VerifyMerkleRootAndKBFSArg) (err error) {
+
+	defer m.CTrace(fmt.Sprintf("VerifyMerkleRootAndKBFS(%+v)", arg), func() error { return err })()
+
+	cli := m.G().GetMerkleClient()
+
+	return mnil
+}
