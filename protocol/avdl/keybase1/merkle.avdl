@@ -10,6 +10,14 @@ protocol merkle {
     Time fetchTime;  // when it was fetched from the server
   }
 
+  @typedef("bytes")
+  record KBFSRootHash {}
+
+  record KBFSRoot {
+    MerkleTreeID treeID;
+    SHA512 root;
+  }
+
   /**
     GetCurrentMerkleRoot gets the current-most Merkle root from the keybase server.
     The caller can specify how stale a result can be with freshnessMsec.
